@@ -54,7 +54,7 @@ class FusedLocationClient implements LocationClient {
 
           @Override
           public synchronized void onLocationAvailability(
-              LocationAvailability locationAvailability) {
+                  @NonNull LocationAvailability locationAvailability) {
             if (!locationAvailability.isLocationAvailable() && !checkLocationService(context)) {
               if (errorCallback != null) {
                 errorCallback.onError(ErrorCodes.locationServicesDisabled);
@@ -79,7 +79,8 @@ class FusedLocationClient implements LocationClient {
                 LocationSettingsResponse lsr = response.getResult();
                 if (lsr != null) {
                   LocationSettingsStates settingsStates = lsr.getLocationSettingsStates();
-                  listener.onLocationServiceResult(
+                    assert settingsStates != null;
+                    listener.onLocationServiceResult(
                       settingsStates.isGpsUsable() || settingsStates.isNetworkLocationUsable());
                 } else {
                   listener.onLocationServiceError(ErrorCodes.locationServicesDisabled);
@@ -190,7 +191,7 @@ class FusedLocationClient implements LocationClient {
   }
 
   private static LocationRequest buildLocationRequest(@Nullable LocationOptions options) {
-    LocationRequest locationRequest = new LocationRequest();
+    LocationRequest locationRequest = LocationRequest.create();
 
     if (options != null) {
       locationRequest.setPriority(toPriority(options.getAccuracy()));
