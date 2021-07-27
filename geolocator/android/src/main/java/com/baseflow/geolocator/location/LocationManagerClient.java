@@ -7,8 +7,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.os.Bundle;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
@@ -129,16 +127,6 @@ class LocationManagerClient implements LocationClient, LocationListener {
       if (this.positionChangedCallback != null) {
         this.positionChangedCallback.onPositionChanged(currentBestLocation);
       }
-    }
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  public void onStatusChanged(String provider, int status, Bundle extras) {
-    if (status == LocationProvider.AVAILABLE) {
-      onProviderEnabled(provider);
-    } else if (status == LocationProvider.OUT_OF_SERVICE) {
-      onProviderDisabled(provider);
     }
   }
 
