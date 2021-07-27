@@ -26,7 +26,7 @@ public class LocationMapper {
       position.put("speed_accuracy", (double) location.getSpeedAccuracyMetersPerSecond());
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-      position.put("is_mocked", location.isFromMockProvider());
+      position.put("is_mocked", location.isMock());
     } else {
       position.put("is_mocked", false);
     }
